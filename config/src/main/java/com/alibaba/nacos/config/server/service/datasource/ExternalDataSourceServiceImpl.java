@@ -61,7 +61,7 @@ public class ExternalDataSourceServiceImpl implements DataSourceService {
      */
     private int queryTimeout = 3;
     
-    private static final int TRANSACTION_QUERY_TIMEOUT = 5;
+    private static final int TRANSACTION_QUERY_TIMEOUT = 50;
     
     private static final String DB_LOAD_ERROR_MSG = "[db-load-error]load jdbc.properties error";
     

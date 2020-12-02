@@ -35,7 +35,7 @@ import com.zaxxer.hikari.HikariDataSource;
  */
 public class ExternalDataSourceProperties {
     
-    private static final String JDBC_DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
+    private String jdbcDriverName = "com.mysql.cj.jdbc.Driver";
     
     public static final long CONNECTION_TIMEOUT_MS = 3000L;
     
@@ -82,7 +82,15 @@ public class ExternalDataSourceProperties {
     public void setMinIdle(List<Integer> minIdle) {
         this.minIdle = minIdle;
     }
-    
+
+    public void setJdbcDriverName(String jdbcDriverName) {
+        this.jdbcDriverName = jdbcDriverName;
+    }
+
+    public String getJdbcDriverName() {
+        return jdbcDriverName;
+    }
+
     /**
      * Build serveral HikariDataSource.
      *
@@ -100,7 +108,7 @@ public class ExternalDataSourceProperties {
             int currentSize = index + 1;
             Preconditions.checkArgument(url.size() >= currentSize, "db.url.%s is null", index);
             HikariDataSource ds = new HikariDataSource();
-            ds.setDriverClassName(JDBC_DRIVER_NAME);
+            ds.setDriverClassName(jdbcDriverName);
             ds.setJdbcUrl(url.get(index).trim());
             ds.setUsername(getOrDefault(user, index, user.get(0)).trim());
             ds.setPassword(getOrDefault(password, index, password.get(0)).trim());

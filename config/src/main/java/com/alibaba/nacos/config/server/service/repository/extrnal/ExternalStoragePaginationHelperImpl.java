@@ -51,11 +51,13 @@ class ExternalStoragePaginationHelperImpl<E> implements PaginationHelper {
      * @param rowMapper    {@link RowMapper}
      * @return Paginated data {@code <E>}
      */
+    @Override
     public Page<E> fetchPage(final String sqlCountRows, final String sqlFetchRows, final Object[] args,
             final int pageNo, final int pageSize, final RowMapper rowMapper) {
         return fetchPage(sqlCountRows, sqlFetchRows, args, pageNo, pageSize, null, rowMapper);
     }
     
+    @Override
     public Page<E> fetchPage(final String sqlCountRows, final String sqlFetchRows, final Object[] args,
             final int pageNo, final int pageSize, final Long lastMaxId, final RowMapper rowMapper) {
         if (pageNo <= 0 || pageSize <= 0) {
@@ -86,21 +88,29 @@ class ExternalStoragePaginationHelperImpl<E> implements PaginationHelper {
         
         final int startRow = (pageNo - 1) * pageSize;
         String selectSql = "";
+        Object[] newArgs = new Object[args.length + 2];
         if (isDerby()) {
             selectSql = sqlFetchRows + " OFFSET " + startRow + " ROWS FETCH NEXT " + pageSize + " ROWS ONLY";
         } else if (lastMaxId != null) {
-            selectSql = sqlFetchRows + " and id > " + lastMaxId + " order by id asc" + " limit " + 0 + "," + pageSize;
+            newArgs = new Object[] {pageSize, lastMaxId, (pageSize - 1) * pageSize + pageSize};
+            selectSql = sqlFetchRows + " and id > ?";
         } else {
-            selectSql = sqlFetchRows + " limit " + startRow + "," + pageSize;
+            newArgs[0] = (pageNo - 1) * pageSize + pageSize;
+            for (int i = 1; i <= args.length; i++) {
+                newArgs[i] = args[i - 1];
+            }
+            newArgs[newArgs.length - 1] = (pageNo - 1) * pageSize;
+            selectSql = sqlFetchRows;
         }
         
-        List<E> result = jdbcTemplate.query(selectSql, args, rowMapper);
+        List<E> result = jdbcTemplate.query(selectSql, newArgs, rowMapper);
         for (E item : result) {
             page.getPageItems().add(item);
         }
         return page;
     }
     
+    @Override
     public Page<E> fetchPageLimit(final String sqlCountRows, final String sqlFetchRows, final Object[] args,
             final int pageNo, final int pageSize, final RowMapper rowMapper) {
         if (pageNo <= 0 || pageSize <= 0) {
@@ -140,6 +150,7 @@ class ExternalStoragePaginationHelperImpl<E> implements PaginationHelper {
         return page;
     }
     
+    @Override
     public Page<E> fetchPageLimit(final String sqlCountRows, final Object[] args1, final String sqlFetchRows,
             final Object[] args2, final int pageNo, final int pageSize, final RowMapper rowMapper) {
         if (pageNo <= 0 || pageSize <= 0) {
@@ -179,6 +190,7 @@ class ExternalStoragePaginationHelperImpl<E> implements PaginationHelper {
         return page;
     }
     
+    @Override
     public Page<E> fetchPageLimit(final String sqlFetchRows, final Object[] args, final int pageNo, final int pageSize,
             final RowMapper rowMapper) {
         if (pageNo <= 0 || pageSize <= 0) {
@@ -199,6 +211,7 @@ class ExternalStoragePaginationHelperImpl<E> implements PaginationHelper {
         return page;
     }
     
+    @Override
     public void updateLimit(final String sql, final Object[] args) {
         String sqlUpdate = sql;
         

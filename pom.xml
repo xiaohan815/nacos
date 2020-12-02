@@ -20,7 +20,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <inceptionYear>2018</inceptionYear>
-    <groupId>com.alibaba.nacos</groupId>
+    <groupId>com.pccw.nacos</groupId>
     <artifactId>nacos-all</artifactId>
     <version>1.3.2</version>
     <packaging>pom</packaging>
@@ -1017,15 +1017,45 @@
         </dependencies>
     </dependencyManagement>
 
+    <repositories>
+        <!--阿里云代理-->
+        <!--<repository>
+            <id>aliyun</id>
+            <name>aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>-->
+        <repository>
+            <id>pccwPublic</id>
+            <name>PCCW-Public Repository</name>
+            <url>http://114.251.247.99:9080/repository/maven-public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>pccwRelease</id>
+            <name>pccw-Release Repository</name>
+            <url>http://114.251.247.99:9080/repository/maven-releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <distributionManagement>
-        <snapshotRepository>
-            <!-- 这里的ID一定要在maven setting文件中存在于server下的ID -->
+        <!--<snapshotRepository>
+            &lt;!&ndash; 这里的ID一定要在maven setting文件中存在于server下的ID &ndash;&gt;
             <id>sona</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
-        <repository>
+        </snapshotRepository>-->
+        <!--<repository>
             <id>sona</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>-->
+        <repository>
+            <id>pccwRelease</id>
+            <name>pccw-Release Repository</name>
+            <url>http://114.251.247.99:9080/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 </project>

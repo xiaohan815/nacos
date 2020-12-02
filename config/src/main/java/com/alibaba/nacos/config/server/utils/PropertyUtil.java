@@ -98,8 +98,9 @@ public class PropertyUtil implements ApplicationContextInitializer<ConfigurableA
     
     /**
      * Inline storage value = ${nacos.standalone}.
+     * ApplicationUtils.getStandaloneMode()
      */
-    private static boolean embeddedStorage = ApplicationUtils.getStandaloneMode();
+    private static boolean embeddedStorage = false;
     
     public static int getNotifyConnectTimeout() {
         return notifyConnectTimeout;
