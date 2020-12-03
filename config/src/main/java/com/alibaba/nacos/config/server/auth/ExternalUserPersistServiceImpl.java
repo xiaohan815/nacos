@@ -22,6 +22,7 @@ import com.alibaba.nacos.config.server.model.User;
 import com.alibaba.nacos.config.server.service.repository.extrnal.ExternalStoragePersistServiceImpl;
 import com.alibaba.nacos.config.server.service.repository.PaginationHelper;
 import com.alibaba.nacos.config.server.utils.LogUtil;
+import com.alibaba.nacos.core.utils.ApplicationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -127,12 +128,14 @@ public class ExternalUserPersistServiceImpl implements UserPersistService {
         
         String sqlCountRows = "select count(*) from users where ";
         String sqlFetchRows = "select username,password from users where ";
-        
-        String where = " 1=1 ";
-        
+        if (isOracle()) {
+            sqlFetchRows = "select username,password from (select username,password,rownum rowno  from users where rownum<=?) temp  where ";
+        }
+        String where = "  1=1 ";
+
         try {
             Page<User> pageInfo = helper
-                    .fetchPage(sqlCountRows + where, sqlFetchRows + where, new ArrayList<String>().toArray(), pageNo,
+                    .fetchPage(sqlCountRows + where, sqlFetchRows + where + " and temp.rowno >=? ", new ArrayList<String>().toArray(), pageNo,
                             pageSize, USER_ROW_MAPPER);
             if (pageInfo == null) {
                 pageInfo = new Page<>();
@@ -144,5 +147,9 @@ public class ExternalUserPersistServiceImpl implements UserPersistService {
             LogUtil.FATAL_LOG.error("[db-error] " + e.toString(), e);
             throw e;
         }
+    }
+
+    private  boolean isOracle() {
+        return ("oracle".equalsIgnoreCase(ApplicationUtils.getProperty("spring.datasource.platform", "")));
     }
 }
