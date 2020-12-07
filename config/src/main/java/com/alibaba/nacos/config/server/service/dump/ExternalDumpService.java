@@ -17,8 +17,10 @@
 package com.alibaba.nacos.config.server.service.dump;
 
 import com.alibaba.nacos.config.server.configuration.ConditionOnExternalStorage;
+import com.alibaba.nacos.config.server.service.LongPollingService;
 import com.alibaba.nacos.config.server.service.repository.PersistService;
 import com.alibaba.nacos.core.cluster.ServerMemberManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +34,11 @@ import javax.annotation.PostConstruct;
 @Conditional(ConditionOnExternalStorage.class)
 @Component
 public class ExternalDumpService extends DumpService {
+
+
+    //去除警告而特意加的这个依赖
+    @Autowired
+    private LongPollingService longPollingService;
     
     /**
      * Here you inject the dependent objects constructively, ensuring that some of the dependent functionality is
