@@ -36,7 +36,7 @@ import javax.annotation.PostConstruct;
 public class ExternalDumpService extends DumpService {
 
 
-    //去除警告而特意加的这个依赖
+    //因为这个得先注册到map里
     @Autowired
     private LongPollingService longPollingService;
     
