@@ -38,14 +38,18 @@
 ### 后端 (Maven)
 
 ```bash
-# 安装依赖并构建
+# 完整编译（推荐使用项目提供的脚本）
+# Windows: build.bat
+# Linux/Mac: 使用以下命令
+
+# 标准构建命令（生成 nacos-server.jar）
+mvn clean install -Prelease-nacos -Dmaven.test.skip=true -Drat.skip=true
+
+# 安装依赖并构建（包含测试）
 mvn clean install
 
-# 运行测试
+# 仅运行测试
 mvn test
-
-# 构建发行包（跳过测试）
-mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U
 
 # 运行配置模块集成测试
 mvn test -Pcit-test
@@ -59,6 +63,15 @@ mvn clean -Premove-test-data
 # 生成 Eclipse 项目文件
 mvn -U eclipse:eclipse
 ```
+
+### 构建说明
+
+- **主要构建产物**：`console/target/nacos-server.jar`（约 100+ MB）
+- **构建时间**：通常需要 2-3 分钟
+- **常见问题**：
+  - 如遇到文件锁定问题，需先关闭 Java 进程
+  - istio 模块可能需要清理缓存：`rd /s /q istio\target\`
+  - 使用 `-Drat.skip=true` 跳过 Apache RAT 许可证检查以加快构建
 
 ### 前端 (console-ui)
 
