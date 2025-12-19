@@ -1,76 +1,76 @@
-# Project Structure
+# 项目结构
 
-The project uses a multi-module Maven structure with the following main modules:
+项目采用 Maven 多模块结构，包含以下主要模块：
 
-## Core Modules
+## 核心模块
 
-- **api**: Public API definitions and gRPC service definitions
-- **client**: Client SDK for service discovery and configuration
-- **common**: Common utilities and shared code
-- **config**: Configuration management module
-- **naming**: Service discovery and registration module
-- **core**: Core server functionality
-- **console**: Backend for web console
-- **console-ui**: Frontend React application for web console
+- **api**：公共 API 定义和 gRPC 服务定义
+- **client**：服务发现和配置的客户端 SDK
+- **common**：通用工具类和共享代码
+- **config**：配置管理模块
+- **naming**：服务发现与注册模块
+- **core**：核心服务器功能
+- **console**：Web 控制台后端
+- **console-ui**：Web 控制台前端 React 应用
 
-## Supporting Modules
+## 支持模块
 
-- **auth**: Authentication and authorization
-- **persistence**: Data persistence layer
-- **consistency**: Distributed consistency (Raft implementation)
-- **plugin**: Plugin interfaces
-- **plugin-default-impl**: Default plugin implementations
-- **sys**: System management
-- **istio**: Istio integration
-- **prometheus**: Prometheus metrics integration
-- **cmdb**: CMDB integration
-- **address**: Address server module
+- **auth**：认证与授权
+- **persistence**：数据持久化层
+- **consistency**：分布式一致性（Raft 实现）
+- **plugin**：插件接口
+- **plugin-default-impl**：默认插件实现
+- **sys**：系统管理
+- **istio**：Istio 集成
+- **prometheus**：Prometheus 指标集成
+- **cmdb**：CMDB 集成
+- **address**：地址服务器模块
 
-## Testing Modules
+## 测试模块
 
-- **test**: Integration tests
-  - **config-test**: Configuration integration tests
-  - **core-test**: Core integration tests
-  - **naming-test**: Naming integration tests
-- **example**: Example code and usage demonstrations
+- **test**：集成测试
+  - **config-test**：配置模块集成测试
+  - **core-test**：核心模块集成测试
+  - **naming-test**：命名模块集成测试
+- **example**：示例代码和使用演示
 
-## Frontend Structure (console-ui)
+## 前端结构 (console-ui)
 
 ```
 console-ui/
 ├── src/
-│   ├── components/     # Reusable React components
-│   ├── pages/          # Page-level components
-│   │   ├── AuthorityControl/
-│   │   ├── ClusterManagement/
-│   │   ├── ConfigurationManagement/
-│   │   ├── ServiceManagement/
-│   │   ├── Login/
-│   │   └── NameSpace/
+│   ├── components/     # 可复用的 React 组件
+│   ├── pages/          # 页面级组件
+│   │   ├── AuthorityControl/      # 权限控制
+│   │   ├── ClusterManagement/     # 集群管理
+│   │   ├── ConfigurationManagement/  # 配置管理
+│   │   ├── ServiceManagement/     # 服务管理
+│   │   ├── Login/                 # 登录
+│   │   └── NameSpace/             # 命名空间
 │   ├── reducers/       # Redux reducers
-│   ├── layouts/        # Layout components
-│   ├── locales/        # i18n translations (zh-CN, en-US)
-│   └── utils/          # Utility functions
-├── build/              # Webpack build configuration
-└── public/             # Static assets
+│   ├── layouts/        # 布局组件
+│   ├── locales/        # 国际化翻译（中文、英文）
+│   └── utils/          # 工具函数
+├── build/              # Webpack 构建配置
+└── public/             # 静态资源
 ```
 
-## Backend Package Structure
+## 后端包结构
 
-All Java packages follow the pattern: `com.alibaba.nacos.<module>.*`
+所有 Java 包遵循命名模式：`com.alibaba.nacos.<模块>.*`
 
-Common package patterns:
-- `*.api`: Public APIs and interfaces
-- `*.controller`: REST API controllers
-- `*.service`: Business logic services
-- `*.model` / `*.entity`: Data models
-- `*.config`: Configuration classes
-- `*.utils`: Utility classes
+常见包命名模式：
+- `*.api`：公共 API 和接口
+- `*.controller`：REST API 控制器
+- `*.service`：业务逻辑服务
+- `*.model` / `*.entity`：数据模型
+- `*.config`：配置类
+- `*.utils`：工具类
 
-## Configuration Files
+## 配置文件
 
-- **pom.xml**: Maven project configuration (root and per-module)
-- **application.properties**: Spring Boot application configuration
-- **style/**: Code style and checkstyle configurations
-  - `nacos-code-style-for-idea.xml`: IntelliJ IDEA code style
-  - `NacosCheckStyle.xml`: Checkstyle rules
+- **pom.xml**：Maven 项目配置（根目录和各模块）
+- **application.properties**：Spring Boot 应用配置
+- **style/**：代码风格和检查配置
+  - `nacos-code-style-for-idea.xml`：IntelliJ IDEA 代码风格
+  - `NacosCheckStyle.xml`：Checkstyle 规则

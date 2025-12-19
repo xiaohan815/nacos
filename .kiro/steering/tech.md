@@ -1,80 +1,80 @@
-# Technology Stack
+# 技术栈
 
-## Backend
+## 后端
 
-### Core Technologies
-- **Language**: Java 8+
-- **Build Tool**: Maven 3.0.3+
-- **Framework**: Spring Boot 2.7.18, Spring Framework 5.3.34, Spring Security 5.7.12
-- **Database**: MySQL 8.0.33, Derby 10.14.2.0
-- **RPC**: gRPC 1.64.2, Protocol Buffers 3.22.3
-- **Consensus**: JRaft 1.3.14 (Raft consensus algorithm)
-- **Authentication**: JWT (jjwt 0.11.2)
-- **Connection Pooling**: HikariCP 3.4.2
-- **Logging**: SLF4J 1.7.26, Logback 1.2.13, Log4j 2.17.1
+### 核心技术
+- **语言**：Java 8+
+- **构建工具**：Maven 3.0.3+
+- **框架**：Spring Boot 2.7.18, Spring Framework 5.3.34, Spring Security 5.7.12
+- **数据库**：MySQL 8.0.33, Derby 10.14.2.0
+- **RPC**：gRPC 1.64.2, Protocol Buffers 3.22.3
+- **一致性算法**：JRaft 1.3.14（Raft 共识算法）
+- **认证**：JWT (jjwt 0.11.2)
+- **连接池**：HikariCP 3.4.2
+- **日志**：SLF4J 1.7.26, Logback 1.2.13, Log4j 2.17.1
 
-### Testing
-- **Framework**: JUnit 5.10.2, Mockito 4.11.0
+### 测试
+- **测试框架**：JUnit 5.10.2, Mockito 4.11.0
 
-## Frontend (console-ui)
+## 前端 (console-ui)
 
-### Core Technologies
-- **Framework**: React 16.12.0
-- **State Management**: Redux 4.0.5, React-Redux 7.1.3
-- **Routing**: React Router 5.1.2
-- **UI Library**: Alibaba Fusion Design (@alifd/next 1.26.24)
-- **Build Tool**: Webpack 4.43.0
-- **Transpiler**: Babel 7
-- **HTTP Client**: Axios 0.21.1
-- **Styling**: Sass/SCSS
+### 核心技术
+- **框架**：React 16.12.0
+- **状态管理**：Redux 4.0.5, React-Redux 7.1.3
+- **路由**：React Router 5.1.2
+- **UI 组件库**：阿里巴巴 Fusion Design (@alifd/next 1.26.24)
+- **构建工具**：Webpack 4.43.0
+- **转译器**：Babel 7
+- **HTTP 客户端**：Axios 0.21.1
+- **样式**：Sass/SCSS
 
-### Development Tools
-- **Linting**: ESLint 6.8.0 with Alibaba config
-- **Code Formatting**: Prettier 1.19.1
-- **Git Hooks**: Husky 3.1.0, lint-staged 9.5.0
+### 开发工具
+- **代码检查**：ESLint 6.8.0（使用阿里巴巴配置）
+- **代码格式化**：Prettier 1.19.1
+- **Git 钩子**：Husky 3.1.0, lint-staged 9.5.0
 
-## Common Build Commands
+## 常用构建命令
 
-### Backend (Maven)
+### 后端 (Maven)
 
 ```bash
-# Install dependencies and build
+# 安装依赖并构建
 mvn clean install
 
-# Run tests
+# 运行测试
 mvn test
 
-# Build distribution packages (skip tests)
+# 构建发行包（跳过测试）
 mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U
 
-# Run configuration integration tests
+# 运行配置模块集成测试
 mvn test -Pcit-test
 
-# Run naming integration tests
+# 运行命名模块集成测试
 mvn test -Pnit-test
 
-# Clean test data
+# 清理测试数据
 mvn clean -Premove-test-data
 
-# Generate Eclipse project files
+# 生成 Eclipse 项目文件
 mvn -U eclipse:eclipse
 ```
 
-### Frontend (console-ui)
+### 前端 (console-ui)
 
 ```bash
-# Install dependencies
+# 安装依赖
 npm install
 
-# Start development server
+# 启动开发服务器
 npm start
 
-# Build for production
+# 构建生产版本
 npm run build
 
-# Run ESLint
+# 运行 ESLint 检查
 npm run eslint
 
-# Fix ESLint issues
+# 自动修复 ESLint 问题
 npm run eslint-fix
 ```
